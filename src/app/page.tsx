@@ -30,6 +30,25 @@ export default async function Home() {
           </button>
         </div>
       </div>
+      <div className="mx-5 my-10 grid grid-cols-[5fr_4fr] rounded-xl border-gray-200 bg-gray-100 px-5 py-7 shadow-md shadow-gray-400/80">
+        <div className="space-y-10 pr-18">
+          <h2 className="text-4xl font-semibold">
+            Solucionamos tus problemas de humedad
+          </h2>
+          <h3 className="text-3xl font-medium">
+            DryHaus ofrece una solucion definitiva, <br /> sin romper paredes ni
+            generar escombros.
+          </h3>
+          <p className="text-[28px] font-light">
+            La humedad ascendente es un problema estructural que afecta a miles
+            de edificaciones. <br />
+            Sus efectos van mas alla de las manchas en las paredes: <br />
+            deteriora los materiales, debilita los cimientos y afecta la calidad
+            del aire interior.
+          </p>
+        </div>
+        <Image src="/assets/kid.png" alt="niño" width={3092} height={2052} />
+      </div>
     </main>
   );
 }
