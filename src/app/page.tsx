@@ -5,38 +5,42 @@ import ContactForm from "./contact-form";
 export default async function Home() {
   return (
     <main className="">
-      <div className="relative">
+      <div
+        style={{
+          backgroundImage: "url('/assets/main.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          height: "calc(100vh - 50px)",
+        }}
+        className="flex flex-col justify-between p-5 pb-28 sm:p-12 sm:pb-52"
+      >
         <Image
-          src="/assets/main.png"
+          src="/assets/logo.png"
+          className="w-36"
           alt="logo"
-          width={3692}
-          height={7916}
-          className="h-full w-full object-cover"
+          width={144}
+          height={144}
         />
-        <div className="absolute top-0 left-0 p-7">
-          <Image src="/assets/logo.png" alt="logo" width={100} height={100} />
-        </div>
-        <div className="absolute top-7/12 -translate-y-1/2 space-y-12 p-7">
-          <div className="space-y-4">
-            <h3 className="text-4xl leading-[1.4] font-semibold">
-              Asegurá el secado de la <br /> humedad de cimientos
-            </h3>
-            <span className="text-2xl font-light">
-              Con tecnología alemana de ultima generacion
-            </span>
-          </div>
-          <button className="flex items-center gap-3 rounded-lg bg-[#58585A] px-10 py-5 font-mono text-2xl tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90">
+        <div className="space-y-2 sm:space-y-4">
+          <h3 className="text-4xl font-semibold sm:text-5xl sm:leading-[1.2]">
+            Asegurá el secado de la <br /> humedad de cimientos
+          </h3>
+          <span className="text-3xl font-light">
+            Con tecnología alemana de ultima generacion
+          </span>
+          <button className="mt-12 flex max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-10 py-5 font-mono text-2xl tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90">
             Contactanos
             <MoveRightIcon className="-mb-1 h-6 w-6" />
           </button>
         </div>
       </div>
       <div className="mx-5 my-10 grid grid-cols-[5fr_4fr] rounded-xl border-gray-200 bg-[#F9F9F9] px-5 py-7 shadow-md shadow-gray-400/80">
-        <div className="space-y-10 pr-18">
-          <h2 className="text-4xl font-semibold">
+        <div className="space-y-6 pr-18 sm:space-y-10">
+          <h2 className="text-3xl font-semibold sm:text-4xl">
             Solucionamos tus problemas de humedad
           </h2>
-          <h3 className="text-3xl font-medium">
+          <h3 className="text-2xl font-medium sm:text-3xl">
             DryHaus ofrece una solucion definitiva, <br /> sin romper paredes ni
             generar escombros.
           </h3>
@@ -48,53 +52,59 @@ export default async function Home() {
             del aire interior.
           </p>
         </div>
-        <Image src="/assets/kid.png" alt="niño" width={3092} height={2052} />
+        <Image
+          className="hidden sm:block"
+          src="/assets/kid.png"
+          alt="niño"
+          width={3092}
+          height={2052}
+        />
       </div>
-      <div className="relative">
+      <div
+        style={{
+          backgroundImage: "url('/assets/casa.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+        className="px-7 py-12 sm:px-12"
+      >
         <div className="">
-          <Image
-            src="/assets/casa.png"
-            alt="casa"
-            width={7708}
-            height={3356}
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute top-10 left-8 space-y-12 p-7 pb-0">
-            <div className="max-w-[800px] space-y-8">
-              <h3 className="text-4xl font-semibold">
-                Tecnología de alemana probada en el mundo
-              </h3>
-              <p className="text-2xl font-light">
-                La electroósmosis inalámbrica es un sistema desarrollado en
-                Alemania.
-              </p>
-              <p className="text-2xl font-light">
-                Nuestra tecnologia detiene el ascenso de la humedad de
-                cimientos, logrando un secado completo y permanente de la
-                estructura.
-                <br /> Un método eficiente, no invasivo y de resultados
-                comprobados.
-              </p>
-            </div>
-            <div className="max-w-[1000px] pt-26 text-xl">
-              Esta teconlogia{" "}
-              <span className="font-semibold">
-                ya protege construcciones icónicas
-              </span>{" "}
-              en distintos paises, garantizando la conservacion de edificaciones
-              patrimoniales y viviendas ¡Y ahora también a tu alcance!
-            </div>
+          <div className="max-w-[800px] space-y-8">
+            <h3 className="text-4xl font-semibold">
+              Tecnología de alemana probada en el mundo
+            </h3>
+            <p className="text-2xl font-light">
+              La electroósmosis inalámbrica es un sistema desarrollado en
+              Alemania.
+            </p>
+            <p className="text-2xl font-light">
+              Nuestra tecnologia detiene el ascenso de la humedad de cimientos,
+              logrando un secado completo y permanente de la estructura.
+              <br /> Un método eficiente, no invasivo y de resultados
+              comprobados.
+            </p>
           </div>
-          <Image
-            src="/assets/lugares.png"
-            alt="logo"
-            width={7608}
-            height={1508}
-            className="-mt-32 bg-gradient-to-b from-[#F6F7F9] to-[#F6F7F9]/0"
-          />
+          <div className="max-w-[1000px] pt-26 text-xl">
+            Esta teconlogia{" "}
+            <span className="font-semibold">
+              ya protege construcciones icónicas
+            </span>{" "}
+            en distintos paises, garantizando la conservacion de edificaciones
+            patrimoniales y viviendas ¡Y ahora también a tu alcance!
+          </div>
+          <div className="flex w-full justify-center">
+            <Image
+              src="/assets/lugares.png"
+              alt="logo"
+              width={7608}
+              height={1508}
+              className="hidden w-[1500px] bg-gradient-to-b sm:block"
+            />
+          </div>
         </div>
       </div>
-      <div className="bg-white pt-20 pl-12">
+      <div className="bg-white px-7 pt-20 sm:px-12">
         <div className="max-w-4xl space-y-10">
           <h1 className="text-4xl font-bold">
             ¿Qué es la humedad de cimientos?
@@ -122,9 +132,9 @@ export default async function Home() {
         </div>
       </div>
 
-      <div className="relative mx-5 my-32 flex overflow-hidden rounded-xl border-gray-200 bg-[#F9F9F9] px-7 py-10 shadow-md shadow-gray-400/80">
-        <div className="w-[60%] space-y-10">
-          <h2 className="overflow-show text-4xl font-semibold whitespace-nowrap">
+      <div className="mx-5 my-32 flex flex-col overflow-hidden rounded-xl border-gray-200 bg-[#F9F9F9] px-7 py-10 shadow-md shadow-gray-400/80 sm:flex-row">
+        <div className="space-y-10 sm:w-[60%]">
+          <h2 className="sm:overflow-show text-3xl font-semibold sm:text-4xl sm:whitespace-nowrap">
             ¿Cómo funciona la electroósmosis y por qué es efectiva?
           </h2>
 
@@ -159,10 +169,10 @@ export default async function Home() {
           alt="electro-osmosis"
           width={3460}
           height={2688}
-          className="w-[40%] max-w-[600px]"
+          className="pt-4 sm:w-[40%] sm:max-w-[600px] sm:pt-0"
         />
       </div>
-      <div className="max-w-[750px] space-y-10 bg-white py-10 pl-12">
+      <div className="max-w-[750px] space-y-10 bg-white px-7 py-10 sm:px-12">
         <h1 className="text-4xl font-bold">¿Quienes somos?</h1>
 
         <p className="text-2xl font-light">
@@ -178,9 +188,9 @@ export default async function Home() {
           para proteger y mantener el valor de tu hogar.
         </p>
       </div>
-      <div className="space-y-10 py-20 pl-12">
+      <div className="space-y-10 px-7 py-20 sm:px-12">
         <div className="space-y-6">
-          <h2 className="overflow-show text-4xl font-semibold whitespace-nowrap">
+          <h2 className="sm:overflow-show text-4xl font-semibold sm:whitespace-nowrap">
             ¿Querés solucionar el problema de humedad de tu hogar?
           </h2>
           <span className="text-2xl font-light">
