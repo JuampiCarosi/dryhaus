@@ -3,7 +3,7 @@ import Image from "next/image";
 import ContactForm from "./contact-form";
 import { env } from "@/env";
 
-export async function sendToCliengo({
+async function sendToCliengo({
   name,
   email,
   phone,
