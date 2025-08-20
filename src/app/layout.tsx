@@ -18,7 +18,16 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang="es" className={`${geist.variable}`}>
+      <head>
+        {/* Cliengo */}
+        <script
+          type="text/javascript"
+          dangerouslySetInnerHTML={{
+            __html: `(function () { var ldk = document.createElement('script'); ldk.type = 'text/javascript'; ldk.async = true; ldk.src = 'https://s.cliengo.com/weboptimizer/619277fe055afc002ab9eccb/68a48ba5aaa1261baa29ee89.js?platform=onboarding_modular'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ldk, s); })()`,
+          }}
+        />
+      </head>
       <body>{children}</body>
     </html>
   );
