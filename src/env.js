@@ -8,6 +8,8 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    CLIENGO_API_KEY: z.string(),
+    CLIENGO_WEBSITE_ID: z.string(),
   },
 
   /**
@@ -25,6 +27,8 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    CLIENGO_API_KEY: process.env.CLIENGO_API_KEY,
+    CLIENGO_WEBSITE_ID: process.env.CLIENGO_WEBSITE_ID,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

@@ -1,6 +1,64 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
 import ContactForm from "./contact-form";
+import { env } from "@/env";
+
+export async function sendToCliengo({
+  name,
+  email,
+  phone,
+  message,
+}: {
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+}) {
+  "use server";
+
+  try {
+    const response = await fetch(
+      `https://api.cliengo.com/1.0/contacts?api_key=${env.CLIENGO_API_KEY}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          websiteId: env.CLIENGO_WEBSITE_ID,
+          name,
+          email,
+          phone,
+          message,
+          entryMethod: "API",
+          utmSource: "dryhaus.com.ar",
+          assignedTo: "62d16a261a5aa5002a3075e1",
+        }),
+      },
+    );
+
+    if (!response.ok) {
+      console.log(response);
+      console.log(await response.json());
+      return {
+        success: false,
+        message: "Error al enviar el formulario",
+      };
+    }
+
+    return {
+      success: true,
+      message: "Formulario enviado correctamente",
+    };
+  } catch (error) {
+    console.error(error);
+    return {
+      success: false,
+      message: "Error al enviar el formulario",
+    };
+  }
+}
 
 export default async function Home() {
   return (
@@ -200,7 +258,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="px-5 pb-10">
-        <ContactForm />
+        <ContactForm sendToCliengo={sendToCliengo} />
       </div>
     </main>
   );
