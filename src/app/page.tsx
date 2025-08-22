@@ -71,7 +71,7 @@ export default async function Home() {
           backgroundRepeat: "no-repeat",
           height: "calc(100vh - 50px)",
         }}
-        className="flex flex-col justify-between p-5 pb-28 sm:p-12 sm:pb-52"
+        className="flex flex-col gap-14 p-5 sm:justify-between sm:p-12 sm:pb-52"
       >
         <Image
           src="/assets/logo.png"
@@ -80,21 +80,21 @@ export default async function Home() {
           width={144}
           height={144}
         />
-        <div className="space-y-2 sm:space-y-4">
+        <div className="w-[60%] space-y-2 sm:w-auto sm:space-y-4">
           <h3 className="text-4xl font-semibold sm:text-5xl sm:leading-[1.2]">
             Asegurá el secado de la <br /> humedad de cimientos
           </h3>
           <span className="text-3xl font-light">
             Con tecnología alemana de ultima generacion
           </span>
-          <button className="mt-12 flex max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-10 py-5 font-mono text-2xl tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90">
+          <button className="mt-12 hidden max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-10 py-5 font-mono text-2xl tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90 sm:flex">
             Contactanos
             <MoveRightIcon className="-mb-1 h-6 w-6" />
           </button>
         </div>
       </div>
-      <div className="mx-5 my-10 grid grid-cols-[5fr_4fr] rounded-xl border-gray-200 bg-[#F9F9F9] px-5 py-7 shadow-md shadow-gray-400/80">
-        <div className="space-y-6 pr-18 sm:space-y-10">
+      <div className="mx-5 my-10 grid grid-cols-1 rounded-xl border-gray-200 bg-[#F9F9F9] py-7 shadow-md shadow-gray-400/80 sm:grid-cols-[5fr_4fr]">
+        <div className="space-y-6 px-7 sm:space-y-10 sm:px-12">
           <h2 className="text-3xl font-semibold sm:text-4xl">
             Solucionamos tus problemas de humedad
           </h2>
@@ -130,7 +130,7 @@ export default async function Home() {
         <div className="">
           <div className="max-w-[800px] space-y-8">
             <h3 className="text-4xl font-semibold">
-              Tecnología de alemana probada en el mundo
+              Tecnología de Alemania probada en el mundo
             </h3>
             <p className="text-2xl font-light">
               La electroósmosis inalámbrica es un sistema desarrollado en
