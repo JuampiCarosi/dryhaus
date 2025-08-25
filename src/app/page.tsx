@@ -63,34 +63,28 @@ async function sendToCliengo({
 export default async function Home() {
   return (
     <main className="">
-      <div
-        style={{
-          backgroundImage: "url('/assets/main.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          height: "calc(100vh - 50px)",
-        }}
-        className="flex flex-col gap-14 p-5 sm:justify-between sm:p-12 sm:pb-52"
-      >
+      <div className="n flex flex-col gap-10 bg-[url(/assets/main-mobile.png)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px)] sm:justify-between sm:bg-[url(/assets/main.png)] sm:bg-center sm:p-12 sm:pb-52">
         <Image
           src="/assets/logo.png"
-          className="w-36"
+          className="w-32 sm:w-36"
           alt="logo"
           width={144}
           height={144}
         />
         <div className="w-[60%] space-y-2 sm:w-auto sm:space-y-4">
-          <h3 className="text-4xl font-semibold sm:text-5xl sm:leading-[1.2]">
+          <h3 className="text-2xl font-semibold sm:text-5xl sm:leading-[1.2]">
             Asegurá el secado de la <br /> humedad de cimientos
           </h3>
-          <span className="text-3xl font-light">
+          <span className="text-lg font-light sm:text-3xl">
             Con tecnología alemana de ultima generacion
           </span>
-          <button className="mt-12 hidden max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-10 py-5 font-mono text-2xl tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90 sm:flex">
+          <a
+            href="#contact"
+            className="mt-12 flex max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-5 py-3 font-mono text-lg tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90 sm:px-10 sm:py-5 sm:text-2xl"
+          >
             Contactanos
             <MoveRightIcon className="-mb-1 h-6 w-6" />
-          </button>
+          </a>
         </div>
       </div>
       <div className="mx-5 my-10 grid grid-cols-1 rounded-xl border-gray-200 bg-[#F9F9F9] py-7 shadow-md shadow-gray-400/80 sm:grid-cols-[5fr_4fr]">
@@ -118,17 +112,9 @@ export default async function Home() {
           height={2052}
         />
       </div>
-      <div
-        style={{
-          backgroundImage: "url('/assets/casa.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-        }}
-        className="px-7 py-12 sm:px-12"
-      >
+      <div className="bg-[url(/assets/casa-mobile.png)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/casa.png)] sm:px-12">
         <div className="">
-          <div className="max-w-[800px] space-y-8">
+          <div className="max-w-[330px] space-y-8 sm:max-w-[800px]">
             <h3 className="text-4xl font-semibold">
               Tecnología de Alemania probada en el mundo
             </h3>
@@ -143,7 +129,7 @@ export default async function Home() {
               comprobados.
             </p>
           </div>
-          <div className="max-w-[1000px] pt-26 text-xl">
+          <div className="pt-10 text-xl sm:max-w-[1000px] sm:pt-26">
             Esta teconlogia{" "}
             <span className="font-semibold">
               ya protege construcciones icónicas
@@ -157,7 +143,14 @@ export default async function Home() {
               alt="logo"
               width={7608}
               height={1508}
-              className="hidden w-[1500px] bg-gradient-to-b sm:block"
+              className="hidden w-[1500px] sm:block"
+            />
+            <Image
+              src="/assets/lugares-mobile.png"
+              alt="logo"
+              width={400}
+              height={792}
+              className="max-w-none pt-2 sm:hidden"
             />
           </div>
         </div>
@@ -247,7 +240,7 @@ export default async function Home() {
         </p>
       </div>
       <div className="space-y-10 px-7 py-20 sm:px-12">
-        <div className="space-y-6">
+        <div id="contact" className="space-y-6">
           <h2 className="sm:overflow-show text-4xl font-semibold sm:whitespace-nowrap">
             ¿Querés solucionar el problema de humedad de tu hogar?
           </h2>

@@ -19,7 +19,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="es" className={`${geist.variable}`}>
+    <html lang="es" className={`${geist.variable} scroll-smooth antialiased`}>
       <head>
         {/* Cliengo */}
         <script
