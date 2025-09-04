@@ -35,6 +35,18 @@ export default function RootLayout({
           href="/assets/optimized/main.webp"
           media="(min-width: 641px)"
         />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/optimized/casa-mobile.webp"
+          media="(max-width: 640px)"
+        />
+        <link
+          rel="preload"
+          as="image"
+          href="/assets/optimized/casa.webp"
+          media="(min-width: 641px)"
+        />
         <link rel="preload" as="image" href="/assets/optimized/logo.webp" />
 
         {/* Cliengo */}

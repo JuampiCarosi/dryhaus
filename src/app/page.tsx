@@ -63,7 +63,7 @@ async function sendToCliengo({
 export default async function Home() {
   return (
     <main className="">
-      <div className="n flex flex-col gap-10 bg-[url(/assets/main-mobile.png)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px)] sm:justify-between sm:bg-[url(/assets/main.png)] sm:bg-center sm:p-12 sm:pb-52">
+      <div className="n flex flex-col gap-10 bg-[url(/assets/optimized/main-mobile.webp)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px)] sm:justify-between sm:bg-[url(/assets/optimized/main.webp)] sm:bg-center sm:p-12 sm:pb-52">
         <Image
           src="/assets/optimized/logo.webp"
           className="w-32 sm:w-36"
@@ -116,7 +116,7 @@ export default async function Home() {
           sizes="(max-width: 640px) 0px, (max-width: 1024px) 50vw, 40vw"
         />
       </div>
-      <div className="bg-[url(/assets/casa-mobile.png)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/casa.png)] sm:px-12">
+      <div className="bg-[url(/assets/optimized/casa-mobile.webp)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/optimized/casa.webp)] sm:px-12">
         <div className="">
           <div className="max-w-[330px] space-y-8 sm:max-w-[800px]">
             <h3 className="text-4xl font-semibold">
