@@ -74,12 +74,12 @@ export default async function Home() {
           sizes="(max-width: 640px) 128px, 144px"
         />
         <div className="w-[60%] space-y-2 sm:w-auto sm:space-y-4">
-          <h3 className="text-2xl font-semibold sm:text-5xl sm:leading-[1.2]">
+          <h1 className="text-2xl font-semibold sm:text-5xl sm:leading-[1.2]">
             Asegurá el secado de la <br /> humedad de cimientos
-          </h3>
-          <span className="text-lg font-light sm:text-3xl">
+          </h1>
+          <p className="text-lg font-light sm:text-3xl">
             Con tecnología alemana de ultima generacion
-          </span>
+          </p>
           <a
             href="#contact"
             className="mt-12 flex max-w-fit items-center gap-3 rounded-lg bg-[#58585A] px-5 py-3 font-mono text-lg tracking-normal text-white shadow-lg transition-colors duration-200 hover:bg-[#58585A]/90 sm:px-10 sm:py-5 sm:text-2xl"
@@ -165,9 +165,9 @@ export default async function Home() {
       </div>
       <div className="bg-white px-7 pt-20 sm:px-12">
         <div className="max-w-4xl space-y-10">
-          <h1 className="text-4xl font-bold">
+          <h2 className="text-4xl font-bold">
             ¿Qué es la humedad de cimientos?
-          </h1>
+          </h2>
 
           <p className="text-2xl font-light">
             Es un fenómeno en el que el agua sube desde los cimientos por
@@ -176,7 +176,7 @@ export default async function Home() {
           </p>
 
           <div className="space-y-4">
-            <h2 className="text-2xl font-light">Se manifiesta con:</h2>
+            <h3 className="text-2xl font-light">Se manifiesta con:</h3>
             <ul className="list-inside list-disc space-y-2 text-xl">
               <li>Manchas y desprendimiento de pintura</li>
               <li>Olor a humedad y moho</li>
@@ -205,7 +205,7 @@ export default async function Home() {
             estarán secas.
           </p>
           <div className="mx-auto max-w-4xl">
-            <h2 className="text-2xl font-light">Ventajas:</h2>
+            <h3 className="text-2xl font-light">Ventajas:</h3>
 
             <ul>
               <li className="flex items-center gap-3">
@@ -234,7 +234,7 @@ export default async function Home() {
         />
       </div>
       <div className="max-w-[750px] space-y-10 bg-white px-7 py-10 sm:px-12">
-        <h1 className="text-4xl font-bold">¿Quienes somos?</h1>
+        <h2 className="text-4xl font-bold">¿Quienes somos?</h2>
 
         <p className="text-2xl font-light">
           Somos un equipo de especialistas en solucionar la humedad de

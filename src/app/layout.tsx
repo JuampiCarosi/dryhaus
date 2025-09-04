@@ -7,7 +7,76 @@ import { Toaster } from "sonner";
 export const metadata: Metadata = {
   title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
   description:
-    "Tecnología alemana de electroósmosis inalámbrica para eliminar la humedad de cimientos de forma permanente, sin obras ni roturas.",
+    "Tecnología alemana de electroósmosis inalámbrica para eliminar la humedad de cimientos de forma permanente, sin obras ni roturas. Resultados garantizados.",
+  keywords: [
+    "humedad de cimientos",
+    "electroósmosis",
+    "tecnología alemana",
+    "secado de paredes",
+    "humedad ascendente",
+    "solución definitiva humedad",
+    "sin obras",
+    "DryHaus",
+    "Argentina",
+    "Buenos Aires",
+    "inyeccion de polimeros",
+    "inyeccion a las paredes",
+    "paredes",
+    "piso",
+    "cimientos",
+    "humedad",
+    "secado",
+    "permanente",
+    "efectivo",
+    "definitivo",
+  ],
+  authors: [{ name: "DryHaus" }],
+  creator: "DryHaus",
+  publisher: "DryHaus",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL("https://dryhaus.com.ar"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
+    description:
+      "Tecnología alemana de electroósmosis inalámbrica para eliminar la humedad de cimientos de forma permanente, sin obras ni roturas.",
+    url: "https://dryhaus.com.ar",
+    siteName: "DryHaus",
+    images: [
+      {
+        url: "/assets/optimized/main.webp",
+        width: 1200,
+        height: 630,
+        alt: "DryHaus - Solución para humedad de cimientos",
+      },
+    ],
+    locale: "es_AR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
+    description:
+      "Tecnología alemana de electroósmosis inalámbrica para eliminar la humedad de cimientos de forma permanente.",
+    images: ["/assets/optimized/main.webp"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
   icons: {
     icon: [
       { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -63,6 +132,42 @@ export default function RootLayout({
           media="(min-width: 641px)"
         />
         <link rel="preload" as="image" href="/assets/optimized/logo.webp" />
+
+        {/* Structured Data */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "DryHaus",
+              description:
+                "Solución definitiva para humedad de cimientos con tecnología alemana de electroósmosis inalámbrica",
+              url: "https://dryhaus.com.ar",
+              logo: "https://dryhaus.com.ar/assets/optimized/logo.webp",
+              image: "https://dryhaus.com.ar/assets/optimized/main.webp",
+              address: {
+                "@type": "PostalAddress",
+                addressCountry: "AR",
+                addressRegion: "Buenos Aires",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                contactType: "customer service",
+                availableLanguage: "Spanish",
+              },
+              sameAs: [],
+              offers: {
+                "@type": "Offer",
+                description:
+                  "Solución para humedad de cimientos sin obras ni roturas",
+                category: "Servicios de construcción y mantenimiento",
+              },
+              serviceType: "Tratamiento de humedad de cimientos",
+              areaServed: "Argentina",
+            }),
+          }}
+        />
 
         {/* Cliengo */}
         <script
