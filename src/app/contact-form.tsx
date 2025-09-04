@@ -30,7 +30,7 @@ export default function ContactForm({
           className="rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
         />
         <input
-          type="tel"
+          type="number"
           placeholder="Teléfono (Codigo de area + 8 numeros)"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
