@@ -65,11 +65,13 @@ export default async function Home() {
     <main className="">
       <div className="n flex flex-col gap-10 bg-[url(/assets/main-mobile.png)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px)] sm:justify-between sm:bg-[url(/assets/main.png)] sm:bg-center sm:p-12 sm:pb-52">
         <Image
-          src="/assets/logo.png"
+          src="/assets/optimized/logo.webp"
           className="w-32 sm:w-36"
-          alt="logo"
+          alt="DryHaus logo"
           width={144}
           height={144}
+          priority
+          sizes="(max-width: 640px) 128px, 144px"
         />
         <div className="w-[60%] space-y-2 sm:w-auto sm:space-y-4">
           <h3 className="text-2xl font-semibold sm:text-5xl sm:leading-[1.2]">
@@ -106,10 +108,12 @@ export default async function Home() {
         </div>
         <Image
           className="hidden sm:block"
-          src="/assets/kid.png"
-          alt="niño"
+          src="/assets/optimized/kid.webp"
+          alt="Child affected by humidity problems"
           width={3092}
           height={2052}
+          loading="lazy"
+          sizes="(max-width: 640px) 0px, (max-width: 1024px) 50vw, 40vw"
         />
       </div>
       <div className="bg-[url(/assets/casa-mobile.png)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/casa.png)] sm:px-12">
@@ -139,18 +143,22 @@ export default async function Home() {
           </div>
           <div className="flex w-full justify-center">
             <Image
-              src="/assets/lugares.png"
-              alt="logo"
+              src="/assets/optimized/lugares.webp"
+              alt="Locations where DryHaus technology is used worldwide"
               width={7608}
               height={1508}
               className="hidden w-[1500px] sm:block"
+              loading="lazy"
+              sizes="(max-width: 640px) 0px, 100vw"
             />
             <Image
-              src="/assets/lugares-mobile.png"
-              alt="logo"
+              src="/assets/optimized/lugares-mobile.webp"
+              alt="Locations where DryHaus technology is used worldwide"
               width={400}
               height={792}
               className="max-w-none pt-2 sm:hidden"
+              loading="lazy"
+              sizes="100vw"
             />
           </div>
         </div>
@@ -216,11 +224,13 @@ export default async function Home() {
           </div>
         </div>
         <Image
-          src="/assets/electro-osmosis.png"
-          alt="electro-osmosis"
+          src="/assets/optimized/electro-osmosis.webp"
+          alt="Electro-osmosis technology diagram showing how it works"
           width={3460}
           height={2688}
           className="pt-4 sm:w-[40%] sm:max-w-[600px] sm:pt-0"
+          loading="lazy"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 40vw"
         />
       </div>
       <div className="max-w-[750px] space-y-10 bg-white px-7 py-10 sm:px-12">
