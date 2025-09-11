@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
+import Link from "next/link";
 
 export default function ContactForm({
   sendToCliengo,
@@ -75,8 +76,34 @@ export default function ContactForm({
           </button>
         </div>
       </div>
-      <div className="flex items-center justify-center pt-2 sm:pt-0">
+      <div className="relative flex flex-col items-start justify-end gap-7 pt-2 sm:flex-row sm:items-center sm:pt-0">
         <Image src="/assets/logo.png" alt="logo" width={200} height={200} />
+        <div className="flex w-full items-center justify-between sm:w-auto sm:justify-end">
+          <div className="flex flex-col gap-2 pt-3 text-white sm:max-w-[300px] sm:pt-0">
+            <Link
+              target="_blank"
+              className="underline"
+              href="https://maps.app.goo.gl/f61ncAKHrWq9t7jL7?g_st=aw"
+            >
+              Almafuerte 1480, Of. 5, <br /> Acassuso, Buenos Aires.
+            </Link>
+            <Link className="underline" href="tel:+5491130402600">
+              <span className="font-medium">Teléfono:</span>11 3040 2600
+            </Link>
+          </div>
+          <Link
+            target="_blank"
+            href="http://qr.afip.gob.ar/?qr=IqGnRnSYun3vu7NNWVhw5w,,"
+            className="sm:absolute sm:right-0 sm:bottom-0"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element*/}
+            <img
+              src="http://www.afip.gob.ar/images/f960/DATAWEB.jpg"
+              alt="AFIP"
+              className="h-16"
+            />
+          </Link>
+        </div>
       </div>
     </div>
   );

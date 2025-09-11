@@ -120,7 +120,7 @@ export default async function Home() {
         <div className="">
           <div className="max-w-[330px] space-y-8 sm:max-w-[800px]">
             <h3 className="text-4xl font-semibold">
-              Tecnología de Alemania probada en el mundo
+              Tecnología Alemana probada en el mundo
             </h3>
             <p className="text-2xl font-light">
               La electroósmosis inalámbrica es un sistema desarrollado en
