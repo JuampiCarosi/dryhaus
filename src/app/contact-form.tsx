@@ -1,9 +1,17 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { toast } from "sonner";
 import Link from "next/link";
+import { z } from "zod/v4";
+
+const formSchema = z.object({
+  name: z.string().min(1, "Por favor, ingrese un nombre"),
+  email: z.email("Por favor, ingrese un email válido"),
+  phone: z.string().min(1, "Por favor, ingrese un teléfono"),
+  message: z.string(),
+});
 
 export default function ContactForm({
   sendToCliengo,
@@ -19,40 +27,87 @@ export default function ContactForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [errors, setErrors] = useState<z.core.$ZodIssue[]>([]);
+
+  useEffect(() => {
+    setErrors([]);
+  }, [name, email, phone, message]);
 
   return (
     <div className="grid grid-cols-1 rounded-2xl bg-[#58585A] p-5 sm:grid-cols-2 sm:p-10">
       <div className="flex flex-col space-y-5">
-        <input
-          type="text"
-          placeholder="Nombre"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          className="rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
-        />
-        <input
-          type="number"
-          placeholder="Teléfono (Codigo de area + 8 numeros)"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
-          className="rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
-        />
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
-        />
-        <textarea
-          placeholder="Escribe tu consulta"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          className="h-40 rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
-        />
+        <div>
+          <input
+            type="text"
+            placeholder="Nombre"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+          />
+          {errors.find((error) => error.path[0] === "name") && (
+            <p className="pl-2 text-red-400">
+              {errors.find((error) => error.path[0] === "name")?.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <input
+            type="number"
+            placeholder="Teléfono (Codigo de area + 8 numeros)"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+          />
+          {errors.find((error) => error.path[0] === "phone") && (
+            <p className="pl-2 text-red-400">
+              {errors.find((error) => error.path[0] === "phone")?.message}
+            </p>
+          )}
+        </div>
+
+        <div>
+          <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+          />
+          {errors.find((error) => error.path[0] === "email") && (
+            <p className="pl-2 text-red-400">
+              {errors.find((error) => error.path[0] === "email")?.message}
+            </p>
+          )}
+        </div>
+        <div>
+          <textarea
+            placeholder="Escribe tu consulta"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="h-40 w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+          />
+          {errors.find((error) => error.path[0] === "message") && (
+            <p className="pl-2 text-red-400">
+              {errors.find((error) => error.path[0] === "message")?.message}
+            </p>
+          )}
+        </div>
+
         <div>
           <button
             onClick={async () => {
+              const result = formSchema.safeParse({
+                name,
+                email,
+                phone,
+                message,
+              });
+
+              if (!result.success) {
+                setErrors(result.error.issues);
+                return;
+              }
+
               const response = await sendToCliengo({
                 name,
                 email,
@@ -87,8 +142,9 @@ export default function ContactForm({
             >
               Almafuerte 1480, Of. 5, <br /> Acassuso, Buenos Aires.
             </Link>
-            <Link className="underline" href="tel:+5491130402600">
-              <span className="font-medium">Teléfono:</span>11 3040 2600
+            <Link className="space-x-2" href="tel:+5491130402600">
+              <span className="font-medium">Teléfono:</span>
+              <span className="underline">11 3040 2600</span>
             </Link>
           </div>
           <Link
