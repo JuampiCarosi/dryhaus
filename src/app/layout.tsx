@@ -2,6 +2,7 @@ import "@/styles/globals.css";
 
 import { type Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
+import Script from "next/script";
 import { Toaster } from "sonner";
 
 export const metadata: Metadata = {
@@ -174,6 +175,21 @@ export default function RootLayout({
           type="text/javascript"
           dangerouslySetInnerHTML={{
             __html: `(function () { var ldk = document.createElement('script'); ldk.type = 'text/javascript'; ldk.async = true; ldk.src = 'https://s.cliengo.com/weboptimizer/619277fe055afc002ab9eccb/68a48ba5aaa1261baa29ee89.js?platform=onboarding_modular'; var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ldk, s); })()`,
+          }}
+        />
+        {/* Google tag (gtag.js) */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17534087405"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'AW-17534087405');
+          `,
           }}
         />
       </head>
