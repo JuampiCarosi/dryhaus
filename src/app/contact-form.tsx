@@ -5,6 +5,7 @@ import Image from "next/image";
 import { toast } from "sonner";
 import Link from "next/link";
 import { z } from "zod/v4";
+import { trackGoogleAdsConversion } from "@/utils/google-ads";
 
 const formSchema = z.object({
   name: z.string().min(1, "Por favor, ingrese un nombre"),
@@ -121,6 +122,8 @@ export default function ContactForm({
                 setPhone("");
                 setMessage("");
                 toast.success(response.message);
+                // Track Google Ads conversion
+                trackGoogleAdsConversion();
               } else {
                 toast.error(response.message);
               }
