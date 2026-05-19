@@ -15,9 +15,9 @@ const formSchema = z.object({
 });
 
 export default function ContactForm({
-  sendToCliengo,
+  sendToSalesforce,
 }: {
-  sendToCliengo: (data: {
+  sendToSalesforce: (data: {
     name: string;
     email: string;
     phone: string;
@@ -109,7 +109,7 @@ export default function ContactForm({
                 return;
               }
 
-              const response = await sendToCliengo({
+              const response = await sendToSalesforce({
                 name,
                 email,
                 phone,

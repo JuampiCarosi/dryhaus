@@ -1,9 +1,7 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
 import ContactForm from "./contact-form";
-import { env } from "@/env";
-
-async function sendToCliengo({
+async function sendToSalesforce({
   name,
   email,
   phone,
@@ -17,30 +15,39 @@ async function sendToCliengo({
   "use server";
 
   try {
+    const parts = name.trim().split(/\s+/);
+    const first_name = parts[0] ?? "";
+    const raw_last_name = parts.slice(1).join(" ");
+    const last_name = raw_last_name !== "" ? raw_last_name : "-";
+
+    const params = new URLSearchParams({
+      oid: "00Dfo000005V0vn",
+      retURL: "https://dryhaus.com.ar/",
+      company: "Lead - Sitio Web",
+      status: "New",
+      first_name: first_name,
+      last_name: last_name,
+      email: email,
+      phone: phone,
+      description: message,
+    });
+
     const response = await fetch(
-      `https://api.cliengo.com/1.0/contacts?api_key=${env.CLIENGO_API_KEY}`,
+      "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dfo000005V0vn",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
         },
-        body: JSON.stringify({
-          websiteId: env.CLIENGO_WEBSITE_ID,
-          name,
-          email,
-          phone,
-          message,
-          entryMethod: "API",
-          utmSource: "dryhaus.com.ar",
-          assignedTo: "62d16a261a5aa5002a3075e1",
-        }),
+        body: params.toString(),
+        redirect: "manual",
       },
     );
 
-    if (!response.ok) {
-      console.log(response);
-      console.log(await response.json());
+    // WebToLead returns a 302 redirect on success. With redirect: 'manual',
+    // we get an opaque or 302 response, which means the lead was created successfully.
+    if (response.status !== 0 && response.status !== 302 && !response.ok) {
+      console.error("Salesforce WebToLead response error status:", response.status);
       return {
         success: false,
         message: "Error al enviar el formulario",
@@ -52,7 +59,7 @@ async function sendToCliengo({
       message: "Formulario enviado correctamente",
     };
   } catch (error) {
-    console.error(error);
+    console.error("Error submitting to Salesforce:", error);
     return {
       success: false,
       message: "Error al enviar el formulario",
@@ -261,7 +268,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="px-5 pb-10">
-        <ContactForm sendToCliengo={sendToCliengo} />
+        <ContactForm sendToSalesforce={sendToSalesforce} />
       </div>
     </main>
   );
