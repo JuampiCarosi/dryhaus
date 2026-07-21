@@ -47,7 +47,10 @@ async function sendToSalesforce({
     // WebToLead returns a 302 redirect on success. With redirect: 'manual',
     // we get an opaque or 302 response, which means the lead was created successfully.
     if (response.status !== 0 && response.status !== 302 && !response.ok) {
-      console.error("Salesforce WebToLead response error status:", response.status);
+      console.error(
+        "Salesforce WebToLead response error status:",
+        response.status,
+      );
       return {
         success: false,
         message: "Error al enviar el formulario",
@@ -102,13 +105,13 @@ export default async function Home() {
             Solucionamos tus problemas de humedad
           </h2>
           <h3 className="text-2xl font-medium sm:text-3xl">
-            DryHaus ofrece una solucion definitiva, <br /> sin romper paredes ni
+            DryHaus ofrece una solución definitiva, <br /> sin romper paredes ni
             generar escombros.
           </h3>
           <p className="text-2xl font-light">
             La humedad ascendente es un problema estructural que afecta a miles
-            de edificaciones. <br />
-            Sus efectos van mas alla de las manchas en las paredes: <br />
+            de edificaciones. <br /> <br />
+            Sus efectos van más allá de las manchas en las paredes: <br />
             deteriora los materiales, debilita los cimientos y afecta la calidad
             del aire interior.
           </p>
@@ -130,22 +133,19 @@ export default async function Home() {
               Tecnología Alemana probada en el mundo
             </h3>
             <p className="text-2xl font-light">
-              La electroósmosis inalámbrica es un sistema desarrollado en
-              Alemania.
-            </p>
-            <p className="text-2xl font-light">
-              Nuestra tecnologia detiene el ascenso de la humedad de cimientos,
-              logrando un secado completo y permanente de la estructura.
-              <br /> Un método eficiente, no invasivo y de resultados
+              Nuestra tecnología detiene el ascenso de la humedad de cimientos,
+              logrando un secado completo y permanente de la estructura mediante
+              principios electro físicos.
+              <br /> <br /> Un método eficiente, no invasivo y de resultados
               comprobados.
             </p>
           </div>
           <div className="pt-10 text-xl sm:max-w-[1000px] sm:pt-26">
-            Esta teconlogia{" "}
+            Esta tecnología{" "}
             <span className="font-semibold">
               ya protege construcciones icónicas
             </span>{" "}
-            en distintos paises, garantizando la conservacion de edificaciones
+            en distintos países, garantizando la conservación de edificaciones
             patrimoniales y viviendas ¡Y ahora también a tu alcance!
           </div>
           <div className="flex w-full justify-center">
@@ -201,13 +201,13 @@ export default async function Home() {
       <div className="mx-5 my-32 flex flex-col overflow-hidden rounded-xl border-gray-200 bg-[#F9F9F9] px-7 py-10 shadow-md shadow-gray-400/80 sm:flex-row">
         <div className="space-y-10 sm:w-[60%]">
           <h2 className="sm:overflow-show text-3xl font-semibold sm:text-4xl sm:whitespace-nowrap">
-            ¿Cómo funciona la electroósmosis y por qué es efectiva?
+            ¿Cómo funciona DryHaus y por qué es efectivo?
           </h2>
 
           <p className="max-w-[600px] text-2xl leading-8 font-light">
-            Nuestro sistema invierte la polaridad de la molécula de agua,
-            revirtiendo su ascenso y permitiendo que los muros se sequen de
-            forma natural. <br />
+            Nuestro sistema logra parar el ascenso de agua por el capilar
+            mediante electro física, permitiendo que los muros se sequen de
+            forma natural. <br /> <br />
             En semanas, notarás los primeros resultados y en meses, tus paredes
             estarán secas.
           </p>
