@@ -1,6 +1,5 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
-import { Resend } from "resend";
 import ContactForm from "./contact-form";
 import { env } from "@/env";
 
@@ -21,30 +20,27 @@ async function sendFormToZapier({
 
   try {
     const leadSource = utm_source.trim() || "Directo";
-    const body = [
-      `nombre: ${name}`,
-      `email: ${email}`,
-      `telefono: ${phone}`,
-      `mensaje: ${message.trim() !== "" ? message : "-"}`,
-      `utm_source: ${leadSource}`,
-    ].join("\n");
 
-    const zapierEmail = env.ZAPIER_FORM_EMAIL;
-    const to = env.FORM_TO_EMAIL ?? zapierEmail;
-    const cc = env.FORM_TO_EMAIL ? [zapierEmail] : undefined;
-
-    const resend = new Resend(env.RESEND_API_KEY);
-    const { error } = await resend.emails.send({
-      from: env.FORM_FROM_EMAIL,
-      to: [to],
-      ...(cc ? { cc } : {}),
-      replyTo: email,
-      subject: `Nuevo lead — ${name} — ${leadSource}`,
-      text: body,
+    const response = await fetch(env.ZAPIER_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: name,
+        email,
+        telefono: phone,
+        mensaje: message.trim() !== "" ? message : "-",
+        utm_source: leadSource,
+      }),
     });
 
-    if (error) {
-      console.error("Resend error:", error);
+    if (!response.ok) {
+      console.error(
+        "Zapier webhook error:",
+        response.status,
+        await response.text().catch(() => ""),
+      );
       return {
         success: false,
         message: "Error al enviar el formulario",
@@ -56,7 +52,7 @@ async function sendFormToZapier({
       message: "Formulario enviado correctamente",
     };
   } catch (error) {
-    console.error("Error submitting form email:", error);
+    console.error("Error submitting to Zapier webhook:", error);
     return {
       success: false,
       message: "Error al enviar el formulario",
