@@ -6,11 +6,13 @@ async function sendToSalesforce({
   email,
   phone,
   message,
+  utm_source,
 }: {
   name: string;
   email: string;
   phone: string;
   message: string;
+  utm_source: string;
 }) {
   "use server";
 
@@ -19,6 +21,7 @@ async function sendToSalesforce({
     const first_name = parts[0] ?? "";
     const raw_last_name = parts.slice(1).join(" ");
     const last_name = raw_last_name !== "" ? raw_last_name : "-";
+    const leadSource = utm_source.trim() || "Directo";
 
     const params = new URLSearchParams({
       oid: "00Dfo000005V0vn",
@@ -30,6 +33,7 @@ async function sendToSalesforce({
       email: email,
       phone: phone,
       description: message,
+      lead_source: leadSource,
     });
 
     const response = await fetch(

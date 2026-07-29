@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import Script from "next/script";
 import { Toaster } from "sonner";
+import UtmSourceTracker from "./_components/utm-source-tracker";
 
 export const metadata: Metadata = {
   title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
@@ -188,6 +189,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <UtmSourceTracker />
         <Toaster />
         {children}
       </body>

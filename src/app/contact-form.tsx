@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { z } from "zod/v4";
 import { trackGoogleAdsConversion } from "@/utils/google-ads";
+import { ensureUtmSource, fillUtmSourceInputs } from "@/utils/utm-source";
 
 const formSchema = z.object({
   name: z.string().min(1, "Por favor, ingrese un nombre"),
@@ -22,21 +23,30 @@ export default function ContactForm({
     email: string;
     phone: string;
     message: string;
+    utm_source: string;
   }) => Promise<{ success: boolean; message: string }>;
 }) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [utmSource, setUtmSource] = useState("Directo");
   const [errors, setErrors] = useState<z.core.$ZodIssue[]>([]);
 
   useEffect(() => {
     setErrors([]);
   }, [name, email, phone, message]);
 
+  useEffect(() => {
+    const source = ensureUtmSource();
+    setUtmSource(source);
+    fillUtmSourceInputs(source);
+  }, []);
+
   return (
     <div className="grid grid-cols-1 rounded-2xl bg-[#58585A] p-5 sm:grid-cols-2 sm:p-10">
       <div className="flex flex-col space-y-5">
+        <input type="hidden" name="utm_source" value={utmSource} readOnly />
         <div>
           <input
             type="text"
@@ -109,11 +119,16 @@ export default function ContactForm({
                 return;
               }
 
+              const source = ensureUtmSource();
+              setUtmSource(source);
+              fillUtmSourceInputs(source);
+
               const response = await sendToSalesforce({
                 name,
                 email,
                 phone,
                 message,
+                utm_source: source,
               });
               console.log(response);
               if (response.success) {
