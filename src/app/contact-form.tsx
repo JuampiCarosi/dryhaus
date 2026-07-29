@@ -6,7 +6,6 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { z } from "zod/v4";
 import { trackGoogleAdsConversion } from "@/utils/google-ads";
-import { ensureUtmSource, fillUtmSourceInputs } from "@/utils/utm-source";
 
 const formSchema = z.object({
   name: z.string().min(1, "Por favor, ingrese un nombre"),
@@ -14,6 +13,19 @@ const formSchema = z.object({
   phone: z.string().min(1, "Por favor, ingrese un teléfono"),
   message: z.string(),
 });
+
+function readUtmSource(): string {
+  try {
+    const fromInput = document.querySelector<HTMLInputElement>(
+      'input[name="utm_source"]',
+    );
+    if (fromInput?.value) return fromInput.value;
+
+    return window.localStorage.getItem("rc_utm_source") ?? "Directo";
+  } catch {
+    return "Directo";
+  }
+}
 
 export default function ContactForm({
   sendToSalesforce,
@@ -30,23 +42,16 @@ export default function ContactForm({
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  const [utmSource, setUtmSource] = useState("Directo");
   const [errors, setErrors] = useState<z.core.$ZodIssue[]>([]);
 
   useEffect(() => {
     setErrors([]);
   }, [name, email, phone, message]);
 
-  useEffect(() => {
-    const source = ensureUtmSource();
-    setUtmSource(source);
-    fillUtmSourceInputs(source);
-  }, []);
-
   return (
     <div className="grid grid-cols-1 rounded-2xl bg-[#58585A] p-5 sm:grid-cols-2 sm:p-10">
       <div className="flex flex-col space-y-5">
-        <input type="hidden" name="utm_source" value={utmSource} readOnly />
+        <input type="hidden" name="utm_source" defaultValue="Directo" />
         <div>
           <input
             type="text"
@@ -119,16 +124,12 @@ export default function ContactForm({
                 return;
               }
 
-              const source = ensureUtmSource();
-              setUtmSource(source);
-              fillUtmSourceInputs(source);
-
               const response = await sendToSalesforce({
                 name,
                 email,
                 phone,
                 message,
-                utm_source: source,
+                utm_source: readUtmSource(),
               });
               console.log(response);
               if (response.success) {
