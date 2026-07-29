@@ -8,6 +8,9 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    LUCIDBOT_API_KEY: z.string().min(1),
+    /** Optional: flow to trigger after creating the contact */
+    LUCIDBOT_FLOW_ID: z.string().optional(),
   },
 
   /**
@@ -25,6 +28,8 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    LUCIDBOT_API_KEY: process.env.LUCIDBOT_API_KEY,
+    LUCIDBOT_FLOW_ID: process.env.LUCIDBOT_FLOW_ID,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

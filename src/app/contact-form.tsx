@@ -28,9 +28,9 @@ function readUtmSource(): string {
 }
 
 export default function ContactForm({
-  sendToSalesforce,
+  sendToLucidBot,
 }: {
-  sendToSalesforce: (data: {
+  sendToLucidBot: (data: {
     name: string;
     email: string;
     phone: string;
@@ -124,7 +124,7 @@ export default function ContactForm({
                 return;
               }
 
-              const response = await sendToSalesforce({
+              const response = await sendToLucidBot({
                 name,
                 email,
                 phone,

@@ -1,7 +1,21 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
 import ContactForm from "./contact-form";
-async function sendToSalesforce({
+import { env } from "@/env";
+
+type LucidBotAction =
+  | { action: "set_field_value"; field_name: string; value: string }
+  | { action: "send_flow"; flow_id: number }
+  | { action: "add_tag"; tag_name: string };
+
+function formatPhoneForLucidBot(phone: string): string {
+  const cleaned = phone.replace(/[^\d+]/g, "");
+  if (cleaned.startsWith("+")) return cleaned;
+  if (cleaned.startsWith("54")) return `+${cleaned}`;
+  return `+54${cleaned}`;
+}
+
+async function sendToLucidBot({
   name,
   email,
   phone,
@@ -23,37 +37,51 @@ async function sendToSalesforce({
     const last_name = raw_last_name !== "" ? raw_last_name : "-";
     const leadSource = utm_source.trim() || "Directo";
 
-    const params = new URLSearchParams({
-      oid: "00Dfo000005V0vn",
-      retURL: "https://dryhaus.com.ar/",
-      company: "Lead - Sitio Web",
-      status: "New",
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone: phone,
-      description: message,
-      lead_source: leadSource,
+    const actions: LucidBotAction[] = [
+      {
+        action: "set_field_value",
+        field_name: "utm_source",
+        value: leadSource,
+      },
+      {
+        action: "set_field_value",
+        field_name: "mensaje",
+        value: message || "-",
+      },
+      {
+        action: "add_tag",
+        tag_name: "Sitio Web",
+      },
+    ];
+
+    if (env.LUCIDBOT_FLOW_ID) {
+      actions.push({
+        action: "send_flow",
+        flow_id: Number(env.LUCIDBOT_FLOW_ID),
+      });
+    }
+
+    const response = await fetch("https://api.chatrace.com/contacts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-ACCESS-TOKEN": env.LUCIDBOT_API_KEY,
+      },
+      body: JSON.stringify({
+        phone: formatPhoneForLucidBot(phone),
+        email,
+        first_name,
+        last_name,
+        actions,
+      }),
     });
 
-    const response = await fetch(
-      "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dfo000005V0vn",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params.toString(),
-        redirect: "manual",
-      },
-    );
-
-    // WebToLead returns a 302 redirect on success. With redirect: 'manual',
-    // we get an opaque or 302 response, which means the lead was created successfully.
-    if (response.status !== 0 && response.status !== 302 && !response.ok) {
+    if (!response.ok) {
+      const errorBody = await response.text().catch(() => "");
       console.error(
-        "Salesforce WebToLead response error status:",
+        "LucidBot create contact error:",
         response.status,
+        errorBody,
       );
       return {
         success: false,
@@ -66,7 +94,7 @@ async function sendToSalesforce({
       message: "Formulario enviado correctamente",
     };
   } catch (error) {
-    console.error("Error submitting to Salesforce:", error);
+    console.error("Error submitting to LucidBot:", error);
     return {
       success: false,
       message: "Error al enviar el formulario",
@@ -272,7 +300,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="px-5 pb-10">
-        <ContactForm sendToSalesforce={sendToSalesforce} />
+        <ContactForm sendToLucidBot={sendToLucidBot} />
       </div>
     </main>
   );
