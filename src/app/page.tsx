@@ -1,21 +1,10 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
+import { Resend } from "resend";
 import ContactForm from "./contact-form";
 import { env } from "@/env";
 
-type LucidBotAction =
-  | { action: "set_field_value"; field_name: string; value: string }
-  | { action: "send_flow"; flow_id: number }
-  | { action: "add_tag"; tag_name: string };
-
-function formatPhoneForLucidBot(phone: string): string {
-  const cleaned = phone.replace(/[^\d+]/g, "");
-  if (cleaned.startsWith("+")) return cleaned;
-  if (cleaned.startsWith("54")) return `+${cleaned}`;
-  return `+54${cleaned}`;
-}
-
-async function sendToLucidBot({
+async function sendFormToZapier({
   name,
   email,
   phone,
@@ -31,58 +20,31 @@ async function sendToLucidBot({
   "use server";
 
   try {
-    const parts = name.trim().split(/\s+/);
-    const first_name = parts[0] ?? "";
-    const raw_last_name = parts.slice(1).join(" ");
-    const last_name = raw_last_name !== "" ? raw_last_name : "-";
     const leadSource = utm_source.trim() || "Directo";
+    const body = [
+      `nombre: ${name}`,
+      `email: ${email}`,
+      `telefono: ${phone}`,
+      `mensaje: ${message.trim() !== "" ? message : "-"}`,
+      `utm_source: ${leadSource}`,
+    ].join("\n");
 
-    const actions: LucidBotAction[] = [
-      {
-        action: "set_field_value",
-        field_name: "utm_source",
-        value: leadSource,
-      },
-      {
-        action: "set_field_value",
-        field_name: "mensaje",
-        value: message || "-",
-      },
-      {
-        action: "add_tag",
-        tag_name: "Sitio Web",
-      },
-    ];
+    const zapierEmail = env.ZAPIER_FORM_EMAIL;
+    const to = env.FORM_TO_EMAIL ?? zapierEmail;
+    const cc = env.FORM_TO_EMAIL ? [zapierEmail] : undefined;
 
-    if (env.LUCIDBOT_FLOW_ID) {
-      actions.push({
-        action: "send_flow",
-        flow_id: Number(env.LUCIDBOT_FLOW_ID),
-      });
-    }
-
-    const response = await fetch("https://api.chatrace.com/contacts", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "X-ACCESS-TOKEN": env.LUCIDBOT_API_KEY,
-      },
-      body: JSON.stringify({
-        phone: formatPhoneForLucidBot(phone),
-        email,
-        first_name,
-        last_name,
-        actions,
-      }),
+    const resend = new Resend(env.RESEND_API_KEY);
+    const { error } = await resend.emails.send({
+      from: env.FORM_FROM_EMAIL,
+      to: [to],
+      ...(cc ? { cc } : {}),
+      replyTo: email,
+      subject: `Nuevo lead — ${name} — ${leadSource}`,
+      text: body,
     });
 
-    if (!response.ok) {
-      const errorBody = await response.text().catch(() => "");
-      console.error(
-        "LucidBot create contact error:",
-        response.status,
-        errorBody,
-      );
+    if (error) {
+      console.error("Resend error:", error);
       return {
         success: false,
         message: "Error al enviar el formulario",
@@ -94,7 +56,7 @@ async function sendToLucidBot({
       message: "Formulario enviado correctamente",
     };
   } catch (error) {
-    console.error("Error submitting to LucidBot:", error);
+    console.error("Error submitting form email:", error);
     return {
       success: false,
       message: "Error al enviar el formulario",
@@ -300,7 +262,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="px-5 pb-10">
-        <ContactForm sendToLucidBot={sendToLucidBot} />
+        <ContactForm sendForm={sendFormToZapier} />
       </div>
     </main>
   );

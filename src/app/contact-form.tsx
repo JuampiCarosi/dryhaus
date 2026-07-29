@@ -28,9 +28,9 @@ function readUtmSource(): string {
 }
 
 export default function ContactForm({
-  sendToLucidBot,
+  sendForm,
 }: {
-  sendToLucidBot: (data: {
+  sendForm: (data: {
     name: string;
     email: string;
     phone: string;
@@ -51,7 +51,7 @@ export default function ContactForm({
   return (
     <div className="grid grid-cols-1 rounded-2xl bg-[#58585A] p-5 sm:grid-cols-2 sm:p-10">
       <div className="flex flex-col space-y-5">
-        <input type="hidden" name="utm_source" defaultValue="Directo" />
+        <input type="hidden" name="utm_source" defaultValue="" />
         <div>
           <input
             type="text"
@@ -124,7 +124,7 @@ export default function ContactForm({
                 return;
               }
 
-              const response = await sendToLucidBot({
+              const response = await sendForm({
                 name,
                 email,
                 phone,

@@ -8,9 +8,16 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
-    LUCIDBOT_API_KEY: z.string().min(1),
-    /** Optional: flow to trigger after creating the contact */
-    LUCIDBOT_FLOW_ID: z.string().optional(),
+    RESEND_API_KEY: z.string().min(1),
+    /** Sender address (must be verified in Resend). Can be "Name <email@domain>". */
+    FORM_FROM_EMAIL: z.string().min(1).default("onboarding@resend.dev"),
+    /** Optional primary recipient. If set, Zapier goes in CC. */
+    FORM_TO_EMAIL: z.string().email().optional(),
+    /** Zapier Email Parser inbox */
+    ZAPIER_FORM_EMAIL: z
+      .string()
+      .email()
+      .default("solaresdekorn@robot.zapier.com"),
   },
 
   /**
@@ -28,8 +35,10 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    LUCIDBOT_API_KEY: process.env.LUCIDBOT_API_KEY,
-    LUCIDBOT_FLOW_ID: process.env.LUCIDBOT_FLOW_ID,
+    RESEND_API_KEY: process.env.RESEND_API_KEY,
+    FORM_FROM_EMAIL: process.env.FORM_FROM_EMAIL,
+    FORM_TO_EMAIL: process.env.FORM_TO_EMAIL,
+    ZAPIER_FORM_EMAIL: process.env.ZAPIER_FORM_EMAIL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
