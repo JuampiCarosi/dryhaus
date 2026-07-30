@@ -31,6 +31,7 @@ async function sendFormToZapier({
         email,
         telefono: phone,
         consulta: message.trim() !== "" ? message : "-",
+        mensaje: message.trim() !== "" ? message : "-",
         utm_source: leadSource,
       }),
     });
