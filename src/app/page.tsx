@@ -1,55 +1,46 @@
 import { MoveRightIcon } from "lucide-react";
 import Image from "next/image";
 import ContactForm from "./contact-form";
-async function sendToSalesforce({
+import { env } from "@/env";
+
+async function sendFormToZapier({
   name,
   email,
   phone,
   message,
+  utm_source,
 }: {
   name: string;
   email: string;
   phone: string;
   message: string;
+  utm_source: string;
 }) {
   "use server";
 
   try {
-    const parts = name.trim().split(/\s+/);
-    const first_name = parts[0] ?? "";
-    const raw_last_name = parts.slice(1).join(" ");
-    const last_name = raw_last_name !== "" ? raw_last_name : "-";
+    const leadSource = utm_source.trim() || "Directo";
 
-    const params = new URLSearchParams({
-      oid: "00Dfo000005V0vn",
-      retURL: "https://dryhaus.com.ar/",
-      company: "Lead - Sitio Web",
-      status: "New",
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      phone: phone,
-      description: message,
+    const response = await fetch(env.ZAPIER_WEBHOOK_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        nombre: name,
+        email,
+        telefono: phone,
+        consulta: message.trim() !== "" ? message : "-",
+        mensaje: message.trim() !== "" ? message : "-",
+        utm_source: leadSource,
+      }),
     });
 
-    const response = await fetch(
-      "https://webto.salesforce.com/servlet/servlet.WebToLead?encoding=UTF-8&orgId=00Dfo000005V0vn",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-        body: params.toString(),
-        redirect: "manual",
-      },
-    );
-
-    // WebToLead returns a 302 redirect on success. With redirect: 'manual',
-    // we get an opaque or 302 response, which means the lead was created successfully.
-    if (response.status !== 0 && response.status !== 302 && !response.ok) {
+    if (!response.ok) {
       console.error(
-        "Salesforce WebToLead response error status:",
+        "Zapier webhook error:",
         response.status,
+        await response.text().catch(() => ""),
       );
       return {
         success: false,
@@ -62,7 +53,7 @@ async function sendToSalesforce({
       message: "Formulario enviado correctamente",
     };
   } catch (error) {
-    console.error("Error submitting to Salesforce:", error);
+    console.error("Error submitting to Zapier webhook:", error);
     return {
       success: false,
       message: "Error al enviar el formulario",
@@ -268,7 +259,7 @@ export default async function Home() {
         </div>
       </div>
       <div className="px-5 pb-10">
-        <ContactForm sendToSalesforce={sendToSalesforce} />
+        <ContactForm sendForm={sendFormToZapier} />
       </div>
     </main>
   );

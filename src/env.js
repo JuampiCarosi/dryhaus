@@ -8,6 +8,8 @@ export const env = createEnv({
    */
   server: {
     NODE_ENV: z.enum(["development", "test", "production"]),
+    /** Zapier Catch Hook URL (Webhooks by Zapier → Catch Hook) */
+    ZAPIER_WEBHOOK_URL: z.string().url(),
   },
 
   /**
@@ -25,6 +27,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
+    ZAPIER_WEBHOOK_URL: process.env.ZAPIER_WEBHOOK_URL,
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**

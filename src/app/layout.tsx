@@ -192,6 +192,123 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         </noscript>
         <Toaster />
         {children}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+(function () {
+  var KEY = "rc_utm_source";
+
+  function trim(s) {
+    return String(s || "").replace(/^\\s+|\\s+$/g, "");
+  }
+
+  function normalize(v) {
+    var s = trim(v);
+    if (!s) return "";
+    var low = s.toLowerCase();
+
+    if (low.indexOf("adwords") !== -1 || low.indexOf("google") !== -1) return "Adwords";
+    if (low.indexOf("facebook") !== -1 || low.indexOf("meta") !== -1 || low.indexOf("instagram") !== -1) return "Meta";
+
+    // si viene Email u otro, lo respeta
+    return s;
+  }
+
+  function getParam(qs, key) {
+    // qs sin "?"
+    if (!qs) return "";
+    var parts = qs.split("&");
+    for (var i = 0; i < parts.length; i++) {
+      var kv = parts[i].split("=");
+      var k = decodeURIComponent(kv[0] || "");
+      if (k === key) return decodeURIComponent(kv.slice(1).join("=") || "");
+    }
+    return "";
+  }
+
+  function getFromUrl() {
+    try {
+      var qs = window.location.search || "";
+      if (qs.charAt(0) === "?") qs = qs.substring(1);
+      var val = getParam(qs, "utm_source");
+      return normalize(val);
+    } catch (e) {
+      return "";
+    }
+  }
+
+  function getStoredRaw() {
+    try { return window.localStorage.getItem(KEY) || ""; } catch (e) { return ""; }
+  }
+
+  function setStored(value) {
+    try { window.localStorage.setItem(KEY, value); } catch (e) {}
+  }
+
+  function sameHost(ref) {
+    try {
+      if (!ref) return false;
+      var a = document.createElement("a");
+      a.href = ref;
+      return a.hostname === window.location.hostname;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function isNewEntry() {
+    // “nueva entrada” = sin referrer o referrer externo
+    var ref = document.referrer || "";
+    if (!ref) return true;
+    return !sameHost(ref);
+  }
+
+  function ensureValue() {
+    var fromUrl = getFromUrl();
+
+    // 1) si hay utm_source, SIEMPRE pisa (last-touch)
+    if (fromUrl) {
+      setStored(fromUrl);
+      return fromUrl;
+    }
+
+    // 2) si NO hay utm_source:
+    // - si es nueva entrada => pisa a Directo
+    // - si es navegación interna => conserva lo que ya había
+    if (isNewEntry()) {
+      setStored("Directo");
+      return "Directo";
+    }
+
+    var stored = normalize(getStoredRaw());
+    return stored || "Directo";
+  }
+
+  function fillHidden(source) {
+    var inputs = document.querySelectorAll('input[name="utm_source"]');
+    for (var i = 0; i < inputs.length; i++) {
+      inputs[i].value = source;
+    }
+  }
+
+  function run() {
+    var source = ensureValue();
+    fillHidden(source);
+  }
+
+  if (document.addEventListener) {
+    document.addEventListener("DOMContentLoaded", run);
+    document.addEventListener("wpcf7init", run);
+    document.addEventListener("wpcf7beforesubmit", run);
+    document.addEventListener("wpcf7submit", run);
+  }
+
+  setTimeout(run, 500);
+  setTimeout(run, 1500);
+})();
+`,
+          }}
+        />
       </body>
     </html>
   );

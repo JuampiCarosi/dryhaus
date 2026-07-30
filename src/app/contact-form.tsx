@@ -14,14 +14,28 @@ const formSchema = z.object({
   message: z.string(),
 });
 
+function readUtmSource(): string {
+  try {
+    const fromInput = document.querySelector<HTMLInputElement>(
+      'input[name="utm_source"]',
+    );
+    if (fromInput?.value) return fromInput.value;
+
+    return window.localStorage.getItem("rc_utm_source") ?? "Directo";
+  } catch {
+    return "Directo";
+  }
+}
+
 export default function ContactForm({
-  sendToSalesforce,
+  sendForm,
 }: {
-  sendToSalesforce: (data: {
+  sendForm: (data: {
     name: string;
     email: string;
     phone: string;
     message: string;
+    utm_source: string;
   }) => Promise<{ success: boolean; message: string }>;
 }) {
   const [name, setName] = useState("");
@@ -37,6 +51,7 @@ export default function ContactForm({
   return (
     <div className="grid grid-cols-1 rounded-2xl bg-[#58585A] p-5 sm:grid-cols-2 sm:p-10">
       <div className="flex flex-col space-y-5">
+        <input type="hidden" name="utm_source" defaultValue="" />
         <div>
           <input
             type="text"
@@ -109,11 +124,12 @@ export default function ContactForm({
                 return;
               }
 
-              const response = await sendToSalesforce({
+              const response = await sendForm({
                 name,
                 email,
                 phone,
                 message,
+                utm_source: readUtmSource(),
               });
               console.log(response);
               if (response.success) {
