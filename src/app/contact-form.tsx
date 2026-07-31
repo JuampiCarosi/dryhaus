@@ -163,7 +163,7 @@ export default function ContactForm({
             </Link>
             <Link className="space-x-2" href="tel:+5491130402600">
               <span className="font-medium">Teléfono:</span>
-              <span className="underline">11 3040 2600</span>
+              <span className="underline">11 2623 2600</span>
             </Link>
           </div>
           <Link
