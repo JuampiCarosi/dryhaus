@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import Link from "next/link";
 import { z } from "zod/v4";
 import { trackGoogleAdsConversion } from "@/utils/google-ads";
+import { WhatsAppIcon } from "@/app/_components/icons";
 
 const formSchema = z.object({
   name: z.string().min(1, "Por favor, ingrese un nombre"),
@@ -43,6 +44,7 @@ export default function ContactForm({
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<z.core.$ZodIssue[]>([]);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setErrors([]);
@@ -58,7 +60,8 @@ export default function ContactForm({
             placeholder="Nombre"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+            disabled={isSubmitting}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white disabled:opacity-60"
           />
           {errors.find((error) => error.path[0] === "name") && (
             <p className="pl-2 text-red-400">
@@ -72,7 +75,8 @@ export default function ContactForm({
             placeholder="Teléfono (Codigo de area + 8 numeros)"
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+            disabled={isSubmitting}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white disabled:opacity-60"
           />
           {errors.find((error) => error.path[0] === "phone") && (
             <p className="pl-2 text-red-400">
@@ -87,7 +91,8 @@ export default function ContactForm({
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+            disabled={isSubmitting}
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white disabled:opacity-60"
           />
           {errors.find((error) => error.path[0] === "email") && (
             <p className="pl-2 text-red-400">
@@ -100,7 +105,8 @@ export default function ContactForm({
             placeholder="Escribe tu consulta"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            className="h-40 w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white"
+            disabled={isSubmitting}
+            className="h-40 w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 text-white placeholder:font-light placeholder:text-white disabled:opacity-60"
           />
           {errors.find((error) => error.path[0] === "message") && (
             <p className="pl-2 text-red-400">
@@ -111,7 +117,11 @@ export default function ContactForm({
 
         <div>
           <button
+            type="button"
+            disabled={isSubmitting}
             onClick={async () => {
+              if (isSubmitting) return;
+
               const result = formSchema.safeParse({
                 name,
                 email,
@@ -124,29 +134,40 @@ export default function ContactForm({
                 return;
               }
 
-              const response = await sendForm({
-                name,
-                email,
-                phone,
-                message,
-                utm_source: readUtmSource(),
-              });
-              console.log(response);
-              if (response.success) {
-                setName("");
-                setEmail("");
-                setPhone("");
-                setMessage("");
-                toast.success(response.message);
-                // Track Google Ads conversion
-                trackGoogleAdsConversion();
-              } else {
-                toast.error(response.message);
+              setIsSubmitting(true);
+              try {
+                const response = await sendForm({
+                  name,
+                  email,
+                  phone,
+                  message,
+                  utm_source: readUtmSource(),
+                });
+
+                if (response.success) {
+                  setName("");
+                  setEmail("");
+                  setPhone("");
+                  setMessage("");
+                  // Track Google Ads conversion
+                  trackGoogleAdsConversion();
+                  // Redirect to thank-you page for marketing measurement
+                  window.location.href = "/gracias";
+                } else {
+                  toast.error(response.message);
+                  setIsSubmitting(false);
+                }
+              } catch (error) {
+                console.error("Error submitting form:", error);
+                toast.error(
+                  "Ocurrió un error al enviar el formulario. Por favor, intentá nuevamente.",
+                );
+                setIsSubmitting(false);
               }
             }}
-            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 font-light tracking-wide text-white hover:bg-[#8A8A8B] sm:w-fit"
+            className="w-full rounded-md bg-[#8A8A8B]/90 px-3 py-2 font-light tracking-wide text-white hover:bg-[#8A8A8B] disabled:cursor-not-allowed disabled:opacity-60 sm:w-fit"
           >
-            Enviar ahora
+            {isSubmitting ? "Enviando..." : "Enviar ahora"}
           </button>
         </div>
       </div>
@@ -161,8 +182,14 @@ export default function ContactForm({
             >
               Almafuerte 1480, Of. 5, <br /> Acassuso, Buenos Aires.
             </Link>
-            <Link className="space-x-2" href="tel:+5491130402600">
-              <span className="font-medium">Teléfono:</span>
+            <Link
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-2 hover:underline"
+              href="https://wa.me/5491126232600"
+            >
+              <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current" />
+              <span className="font-medium">WhatsApp:</span>
               <span className="underline">11 2623 2600</span>
             </Link>
           </div>
