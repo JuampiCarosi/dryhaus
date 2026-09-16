@@ -3,6 +3,7 @@ import "@/styles/globals.css";
 import { type Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { Toaster } from "sonner";
+import Navbar from "./_components/navbar";
 
 export const metadata: Metadata = {
   title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
@@ -191,6 +192,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         <Toaster />
+        <Navbar />
         {children}
         <script
           dangerouslySetInnerHTML={{
