@@ -186,11 +186,11 @@ export default function ContactForm({
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 hover:underline"
-              href="https://wa.me/5491126232600"
+              href="https://wa.me/5491133842500"
             >
               <WhatsAppIcon className="h-4 w-4 shrink-0 fill-current" />
               <span className="font-medium">WhatsApp:</span>
-              <span className="underline">11 2623 2600</span>
+              <span className="underline">11 3384 2500</span>
             </Link>
           </div>
           <Link

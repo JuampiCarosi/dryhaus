@@ -66,7 +66,7 @@ export default function GraciasPage() {
             </p>
             <div className="space-y-1.5 text-gray-600">
               <Link
-                href="https://wa.me/5491126232600"
+                href="https://wa.me/5491133842500"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 text-[#58585A] hover:underline"
@@ -74,7 +74,7 @@ export default function GraciasPage() {
                 <WhatsAppIcon className="h-4 w-4 shrink-0 fill-[#58585A]" />
                 <span>
                   <span className="font-medium">WhatsApp:</span>{" "}
-                  <span className="underline">11 2623 2600</span>
+                  <span className="underline">11 3384 2500</span>
                 </span>
               </Link>
               <Link
