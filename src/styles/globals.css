@@ -14,7 +14,7 @@
   }
 }
 
-/* Thin promo bar. The red slowly cycles so it stays noticeable. */
+/* Thin promo bar. Fixed red, no color pulse. */
 @keyframes promo-drop {
   from {
     max-height: 0;
@@ -26,29 +26,17 @@
   }
 }
 
-@keyframes promo-red-cycle {
-  0%,
-  100% {
-    background-color: #c8102e;
-  }
-  50% {
-    background-color: #ff2d2d;
-  }
-}
-
 .promo-drop {
   overflow: hidden;
   animation: promo-drop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .promo-banner {
-  background-color: #c8102e;
-  animation: promo-red-cycle 2.8s ease-in-out infinite;
+  background-color: #d71920;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .promo-drop,
-  .promo-banner {
+  .promo-drop {
     animation: none;
   }
 }
