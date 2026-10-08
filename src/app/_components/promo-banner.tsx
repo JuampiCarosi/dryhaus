@@ -14,23 +14,35 @@ export default function PromoBanner() {
     <div className="promo-drop">
       <div
         role="region"
-        aria-label="Promoción DryHaus DH-x100"
+        aria-label="Promoción de primavera DryHaus DH-x100"
         className="promo-banner relative text-white"
       >
         <a
           href="#contact"
-          className="block px-8 py-2.5 text-center text-[12px] leading-snug font-medium tracking-wide text-white sm:px-10 sm:py-2.5 sm:text-[13px]"
+          className="block px-10 py-2 text-center text-[12px] leading-snug font-medium tracking-wide text-white sm:py-2.5 sm:text-[13px]"
         >
-          <span className="font-semibold">DH-x100</span>
+          <span className="font-semibold">Promoción de primavera</span>
           <span aria-hidden className="mx-1.5 font-normal text-white/70">
+            ·
+          </span>
+          <span className="font-semibold">DH-x100</span>
+          <br className="sm:hidden" />
+          <span
+            aria-hidden
+            className="mx-1.5 hidden font-normal text-white/70 sm:inline"
+          >
             ·
           </span>
           Anticipo <span className="font-semibold">$1.590.000</span> al contado
           <br className="sm:hidden" />
-          <span aria-hidden className="mx-1.5 hidden font-normal text-white/70 sm:inline">
+          <span
+            aria-hidden
+            className="mx-1.5 hidden font-normal text-white/70 sm:inline"
+          >
             +
           </span>
-          <span className="font-semibold">12 × $189.000</span> con Visa/Mastercard
+          <span className="font-semibold">12 × $189.000</span> con
+          Visa/Mastercard
         </a>
         <button
           type="button"

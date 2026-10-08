@@ -17,8 +17,12 @@ export default function Navbar() {
 
   return (
     <header className="w-full border-b border-gray-200/70 bg-white/90 backdrop-blur-md transition-all">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-12 sm:py-3">
-        <Link href="/" className="shrink-0" aria-label="DryHaus, inicio">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-12 sm:py-3 lg:justify-end">
+        <Link
+          href="/"
+          className="shrink-0 lg:hidden"
+          aria-label="DryHaus, inicio"
+        >
           <Image
             src="/assets/optimized/logo.webp"
             alt="DryHaus"
