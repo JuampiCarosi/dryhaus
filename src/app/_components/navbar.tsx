@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 
 const NAV_ITEMS = [
@@ -17,7 +18,7 @@ export default function Navbar() {
   return (
     <header className="w-full border-b border-gray-200/70 bg-white/90 backdrop-blur-md transition-all">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2.5 sm:px-12 sm:py-3">
-        <a href="/" className="shrink-0" aria-label="DryHaus, inicio">
+        <Link href="/" className="shrink-0" aria-label="DryHaus, inicio">
           <Image
             src="/assets/optimized/logo.webp"
             alt="DryHaus"
@@ -26,7 +27,7 @@ export default function Navbar() {
             priority
             className="h-14 w-14 sm:h-16 sm:w-16"
           />
-        </a>
+        </Link>
 
         {/* Desktop navigation */}
         <nav className="hidden items-center gap-7 lg:flex">
