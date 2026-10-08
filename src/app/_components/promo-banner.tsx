@@ -26,10 +26,9 @@ export default function PromoBanner() {
           </span>
           <span className="mt-0.5 block">
             Anticipo: <span className="font-semibold">$ 1.590.000</span> al
-            contado
+            contado{" "}
             <br className="sm:hidden" />
-            <span className="hidden sm:inline"> + </span>
-            <span className="sm:hidden">+ </span>
+            <span className="font-bold">+</span>{" "}
             <span className="font-semibold">12 x $ 189.000</span> con
             Visa/Mastercard
           </span>
