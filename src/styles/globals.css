@@ -21,7 +21,7 @@
     opacity: 0;
   }
   to {
-    max-height: 6rem;
+    max-height: 9rem;
     opacity: 1;
   }
 }
