@@ -13,3 +13,30 @@
     margin: 0;
   }
 }
+
+/* Thin promo bar. Fixed red, no color pulse. */
+@keyframes promo-drop {
+  from {
+    max-height: 0;
+    opacity: 0;
+  }
+  to {
+    max-height: 9rem;
+    opacity: 1;
+  }
+}
+
+.promo-drop {
+  overflow: hidden;
+  animation: promo-drop 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.promo-banner {
+  background-color: #d71920;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .promo-drop {
+    animation: none;
+  }
+}
