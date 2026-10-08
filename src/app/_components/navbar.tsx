@@ -14,7 +14,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-200/70 bg-white/90 backdrop-blur-md transition-all">
+    <header className="w-full border-b border-gray-200/70 bg-white/90 backdrop-blur-md transition-all">
       <div className="mx-auto flex max-w-7xl items-center justify-end px-5 py-3 sm:px-12 sm:py-4">
         {/* Desktop navigation */}
         <nav className="hidden items-center gap-7 lg:flex">

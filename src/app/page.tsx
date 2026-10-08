@@ -64,7 +64,7 @@ async function sendFormToZapier({
 export default async function Home() {
   return (
     <main className="">
-      <div className="n flex flex-col gap-10 bg-[url(/assets/optimized/main-mobile.webp)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px)] sm:justify-between sm:bg-[url(/assets/optimized/main.webp)] sm:bg-center sm:p-12 sm:pb-52">
+      <div className="n flex flex-col gap-10 bg-[url(/assets/optimized/main-mobile.webp)] bg-cover bg-no-repeat p-5 sm:h-[calc(100vh-50px-2.5rem)] sm:justify-between sm:bg-[url(/assets/optimized/main.webp)] sm:bg-center sm:p-12 sm:pb-52">
         <Image
           src="/assets/optimized/logo.webp"
           className="w-32 sm:w-36"
@@ -92,7 +92,7 @@ export default async function Home() {
       </div>
       <div
         id="solucion-humedad"
-        className="mx-5 my-10 scroll-mt-24 grid grid-cols-1 rounded-xl border-gray-200 bg-[#F9F9F9] py-7 shadow-md shadow-gray-400/80 sm:grid-cols-[5fr_4fr]"
+        className="mx-5 my-10 grid scroll-mt-32 grid-cols-1 rounded-xl border-gray-200 bg-[#F9F9F9] py-7 shadow-md shadow-gray-400/80 sm:grid-cols-[5fr_4fr]"
       >
         <div className="space-y-6 px-7 sm:space-y-10 sm:px-12">
           <h2 className="text-3xl font-semibold sm:text-4xl">
@@ -122,7 +122,7 @@ export default async function Home() {
       </div>
       <div
         id="tecnologia-alemana"
-        className="scroll-mt-24 bg-[url(/assets/optimized/casa-mobile.webp)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/optimized/casa.webp)] sm:px-12"
+        className="scroll-mt-32 bg-[url(/assets/optimized/casa-mobile.webp)] bg-cover bg-center bg-no-repeat px-7 py-12 sm:bg-[url(/assets/optimized/casa.webp)] sm:px-12"
       >
         <div className="">
           <div className="max-w-[330px] space-y-8 sm:max-w-[800px]">
@@ -197,7 +197,7 @@ export default async function Home() {
 
       <div
         id="como-funciona"
-        className="mx-5 my-32 scroll-mt-24 flex flex-col overflow-hidden rounded-xl border-gray-200 bg-[#F9F9F9] px-7 py-10 shadow-md shadow-gray-400/80 sm:flex-row"
+        className="mx-5 my-32 flex scroll-mt-32 flex-col overflow-hidden rounded-xl border-gray-200 bg-[#F9F9F9] px-7 py-10 shadow-md shadow-gray-400/80 sm:flex-row"
       >
         <div className="space-y-10 sm:w-[60%]">
           <h2 className="sm:overflow-show text-3xl font-semibold sm:text-4xl sm:whitespace-nowrap">
@@ -242,7 +242,7 @@ export default async function Home() {
       </div>
       <div
         id="quienes-somos"
-        className="max-w-[750px] scroll-mt-24 space-y-10 bg-white px-7 py-10 sm:px-12"
+        className="max-w-[750px] scroll-mt-32 space-y-10 bg-white px-7 py-10 sm:px-12"
       >
         <h2 className="text-4xl font-bold">¿Quienes somos?</h2>
 
@@ -260,7 +260,7 @@ export default async function Home() {
         </p>
       </div>
       <div className="space-y-10 px-7 py-20 sm:px-12">
-        <div id="contact" className="scroll-mt-24 space-y-6">
+        <div id="contact" className="scroll-mt-32 space-y-6">
           <h2 className="sm:overflow-show text-4xl font-semibold sm:whitespace-nowrap">
             ¿Querés solucionar el problema de humedad de tu hogar?
           </h2>

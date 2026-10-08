@@ -4,6 +4,7 @@ import { type Metadata } from "next";
 import { IBM_Plex_Sans } from "next/font/google";
 import { Toaster } from "sonner";
 import Navbar from "./_components/navbar";
+import PromoBanner from "./_components/promo-banner";
 
 export const metadata: Metadata = {
   title: "DryHaus - Solución Definitiva para Humedad de Cimientos",
@@ -192,7 +193,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           />
         </noscript>
         <Toaster />
-        <Navbar />
+        <div className="sticky top-0 z-50">
+          <PromoBanner />
+          <Navbar />
+        </div>
         {children}
         <script
           dangerouslySetInnerHTML={{
