@@ -16,31 +16,33 @@ export default function PromoBanner() {
       >
         <a
           href="#contact"
-          className="block px-4 py-4 text-center text-xl leading-snug font-medium text-white sm:px-8 sm:py-5 sm:text-[26px]"
+          className="flex flex-col items-center gap-1 px-4 py-3 text-center text-[15px] leading-snug font-medium text-white sm:flex-row sm:flex-wrap sm:justify-center sm:gap-x-2 sm:gap-y-1 sm:px-6 sm:py-3 sm:text-[15px]"
         >
           <span className="font-semibold tracking-[0.08em] whitespace-nowrap">
             PROMO PRIMAVERA
           </span>
-          <span aria-hidden className="mx-1.5 font-normal">
-            ·
+          <span className="whitespace-nowrap">
+            <span aria-hidden className="hidden sm:inline">
+              ·{" "}
+            </span>
+            DryHaus DH-x100 hasta 100 m2
           </span>
-          DryHaus <span className="whitespace-nowrap">DH-x100</span> hasta{" "}
-          <span className="whitespace-nowrap">100 m2</span>
-          <br className="sm:hidden" />
-          <span aria-hidden className="mx-1.5 hidden font-normal sm:inline">
-            ·
+          <span className="sm:whitespace-nowrap">
+            <span aria-hidden className="hidden sm:inline">
+              ·{" "}
+            </span>
+            Anticipo: <span className="font-semibold">$ 1.590.000</span> al
+            contado <span className="font-bold">+</span>{" "}
+            <span className="font-semibold">12 x $ 189.000</span> con
+            Visa/Mastercard
           </span>
-          Anticipo:{" "}
-          <span className="font-semibold whitespace-nowrap">$ 1.590.000</span>{" "}
-          al contado <span className="font-bold">+</span>{" "}
-          <span className="font-semibold whitespace-nowrap">
-            12 x $ 189.000
-          </span>{" "}
-          <span className="whitespace-nowrap">con Visa/Mastercard</span>{" "}
-          <br className="sm:hidden" />
-          <span className="font-bold">o</span> 6 cuotas sin interés de{" "}
-          <span className="font-semibold whitespace-nowrap">$ 643.000</span>{" "}
-          <span className="whitespace-nowrap">con VISA/MASTERCARD</span>
+          <span className="sm:whitespace-nowrap">
+            <span aria-hidden className="hidden sm:inline">
+              ·{" "}
+            </span>
+            <span className="font-bold">o</span> 6 cuotas sin interés de{" "}
+            <span className="font-semibold">$ 643.000</span> con VISA/MASTERCARD
+          </span>
         </a>
       </div>
     </div>
